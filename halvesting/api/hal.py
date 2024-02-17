@@ -69,7 +69,6 @@ class HAL():
     ):
         self._cursor_url = "*"
         self.query = query if query is not None else "*"
-        print(from_date)
         if from_date is not None:
             from_hour = from_hour if from_hour is not None else "00:00:00"
             self.date_last_index = \
@@ -82,7 +81,6 @@ class HAL():
             self.date_last_index += f"TO {to_date}T{to_hour}Z]"
         else:
             self.date_last_index += f"TO *]"
-        print(self.date_last_index)
         self.pdf = pdf if pdf is not None else False
 
 

@@ -96,11 +96,12 @@ class Postprocessing():
                 break
 
             iso_code = metadata["lang"]
-            self.lang[iso_code]["nb_files"] += 1
             text = self._read_txt(metadata["halid"])
 
             if text is None:
                 continue
+                
+            self.lang[iso_code]["nb_files"] += 1
 
             # Heuristic used to drop the corrupted txts.
             str_text = text.decode("utf-8")
@@ -114,7 +115,10 @@ class Postprocessing():
             if self.lang[iso_code]["nb_files"] == _DOC_PER_JS:
                 self._compress(iso_code)
         for iso_code in self.lang.keys():
-            self._compress(iso_code)
+            try:
+                self._compress(iso_code)
+            except FileNotFoundError:
+                continue
 
 
     def _get_last_idx(self):
@@ -130,9 +134,9 @@ class Postprocessing():
 
     def _read_txt(self, halid: str):
         with zipfile.ZipFile(self.txt_folder, "r", zipfile.ZIP_DEFLATED) as zf:
-            path = f"teis/{halid}.grobid.txt"
+            path = f"txts/{halid}.grobid.txt"
             if path in zf.namelist():
-                with zf.open(f"teis/{halid}.grobid.txt", "r") as f:
+                with zf.open(f"txts/{halid}.grobid.txt", "r") as f:
                     text = f.read()
             else:
                 return None
