@@ -16,6 +16,18 @@ The latest dump can be found on [HuggingFace](huggingface.co). The update is don
 - [**postprocess_data.py**](postprocess_data.py): This script is used for post-processing the fetched data.
 
 
+## Requirements
+
+In order to take full advantage of HALvesting and get the research paper's fulltexts, you'll need to install and use the following repos:
+
+```
+GROBID: A machine learning software for extracting information from scholarly documents
+https://github.com/kermitt2/grobid
+
+harvesting: Collection of data parser for harvested data in [...]
+[...]
+```
+
 ## Installation
 
 1. Clone the repository
@@ -99,19 +111,9 @@ If you find our work helpful, please cite the following:
     year = {2024},
     archivePrefix = {swh}
 }
-```
 
-
-## Acknowledgment
-
-This repo is built upon the following works:
-
-```
-GROBID: A machine learning software for extracting information from scholarly documents
-https://github.com/kermitt2/grobid
-
-harvesting: Collection of data parser for harvested data in [...]
-[...]
+@proceedings{TBD
+}
 ```
 
 
