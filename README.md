@@ -56,18 +56,18 @@ It is easier to modify the [`fetch_data.sh`](scripts/fetch_data.sh) directly and
 
 However, you can run the [`fetch_data.py`](fetch_data.py) script with appropriate arguments.
 ```
-usage: fetch_data.py [--query QUERY] [--from_date %Y/%m/%d] [--from_hour %H:%M:%S] [--to_date %Y/%m/%d] [to_hour %H:%M:%S] [--pdf]
+usage: fetch_data.py [--query QUERY] [--from_date %Y-%m-%d] [--from_hour %H:%M:%S] [--to_date %Y-%m-%d] [to_hour %H:%M:%S] [--pdf]
 
 Fetch data from HAL. Can also download PDFs locally.
 
 optional arguments:
     --query QUERY
         Search request.
-    --from_date %Y/%m/%d
+    --from_date %Y-%m-%d
         Minimum deposit date on HAL.
     --from_hour %H:%M:%S
         Minimum deposit hour on a given day on HAL.
-    --to_date %Y/%m/%d
+    --to_date %Y-%m-%d
         Maximum deposit date on HAL.
     --to_hour %H:%M:%S
         Maximum deposit hour on a given day on HAL.
