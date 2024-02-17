@@ -1,13 +1,13 @@
 # HALvesting
 
-Harvests open scientific papers from HAL and parses it.
+Harvests open research papers from HAL and parses it.
 
 ---
 
 
 HALvesting is a Python project designed for harvesting data from the [HAL (Hyper Articles en Ligne) repository](https://hal.science/). It provides functionalities to fetch data from HAL using specified criteria and process the fetched data for further analysis.
 
-The latest dump can be found on [HuggingFace](huggingface.co). The update is done yearly.
+The latest dump can be found on [HuggingFace](https://huggingface.co/datasets/Madjakul/halvest).
 
 
 ## Features
