@@ -1,6 +1,6 @@
 # HALvesting
 
-Harvests open scientific papers from HAL and parses it.
+Harvests open research papers from HAL and parses it.
 
 ---
 
