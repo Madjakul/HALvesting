@@ -11,7 +11,7 @@ import aiofiles
 import lxml.html
 import lxml.etree
 
-from halversting.utils.data import Flusher, format_hal
+from halvesting.utils.data import Flusher, format_hal
 
 
 _DOC_PER_JS = 1000

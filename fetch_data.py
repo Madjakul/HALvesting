@@ -2,8 +2,8 @@
 
 import logging
 
-from halversting.api import HAL
-from halversting.utils import  FetcherArgParse, logging_config
+from halvesting.api import HAL
+from halvesting.utils import  FetcherArgParse, logging_config
 
 
 logging_config()

@@ -1,9 +1,11 @@
-# HALversting
+# HALvesting
 
 Harvests open scientific papers from HAL and parses it.
+
 ---
 
-HALversting is a Python project designed for harvesting data from the [HAL (Hyper Articles en Ligne) repository](https://hal.science/). It provides functionalities to fetch data from HAL using specified criteria and process the fetched data for further analysis.
+
+HALvesting is a Python project designed for harvesting data from the [HAL (Hyper Articles en Ligne) repository](https://hal.science/). It provides functionalities to fetch data from HAL using specified criteria and process the fetched data for further analysis.
 
 The latest dump can be found on [HuggingFace](huggingface.co). The update is done yearly.
 
@@ -18,12 +20,12 @@ The latest dump can be found on [HuggingFace](huggingface.co). The update is don
 
 1. Clone the repository
 ```sh
-git clone https://github.com/Madjakul/HALversting.git
+git clone https://github.com/Madjakul/HALvesting.git
 ```
 
 2. Navigate to the project directory
 ```sh
-cd HALversting
+cd HALvesting
 ```
 3. Install the required dependencies:
 ```sh
@@ -90,9 +92,9 @@ arguments:
 
 If you find our work helpful, please cite the following:
 ```bib
-@misc{HALversting,
-    title = {HALversting},
-    howpublished = {\url{https://github.com/Madjakul/HALversting}},
+@misc{HALvesting,
+    title = {HALvesting},
+    howpublished = {\url{https://github.com/Madjakul/HALvesting}},
     publisher = {GitHub},
     year = {2024},
     archivePrefix = {swh}

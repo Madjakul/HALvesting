@@ -2,8 +2,8 @@
 
 import logging
 
-from halversting.utils.data import Postprocessing
-from halversting.utils import PostprocessArgParse, logging_config
+from halvesting.utils.data import Postprocessing
+from halvesting.utils import PostprocessArgParse, logging_config
 
 
 logging_config()
