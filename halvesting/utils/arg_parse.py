@@ -29,29 +29,25 @@ class FetcherArgParse():
         parser.add_argument(
             "--from_date",
             type=str,
-            nargs="?",
-            const=None,
+            default=argparse.SUPPRESS,
             help="Date of the last update"
         )
         parser.add_argument(
             "--from_hour",
             type=str,
-            nargs="?",
-            const=None,
+            default=argparse.SUPPRESS,
             help="Hour of the last update"
         )
         parser.add_argument(
             "--to_date",
             type=str,
-            nargs="?",
-            const=None,
+            default=argparse.SUPPRESS,
             help="Date of the last document submitted."
         )
         parser.add_argument(
             "--to_hour",
             type=str,
-            nargs="?",
-            const=None,
+            default=argparse.SUPPRESS,
             help="Hour of the last document submitted."
         )
         parser.add_argument(

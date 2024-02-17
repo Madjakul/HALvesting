@@ -69,6 +69,7 @@ class HAL():
     ):
         self._cursor_url = "*"
         self.query = query if query is not None else "*"
+        print(from_date)
         if from_date is not None:
             from_hour = from_hour if from_hour is not None else "00:00:00"
             self.date_last_index = \
@@ -81,15 +82,12 @@ class HAL():
             self.date_last_index += f"TO {to_date}T{to_hour}Z]"
         else:
             self.date_last_index += f"TO *]"
+        print(self.date_last_index)
         self.pdf = pdf if pdf is not None else False
 
 
-    def __call__(
-        self, query: Optional[str]=None, from_date: Optional[str]=None,
-        from_hour: Optional[str]=None, to_date: Optional[datetime]=None,
-        to_hour: Optional[str]=None, pdf: Optional[bool]=None
-    ):
-        asyncio.run(self.get(query, from_date, from_hour, to_date, to_hour, pdf))
+    def __call__(self):
+        asyncio.run(self.get())
 
 
     async def _scrape(self, queue: asyncio.Queue):
@@ -169,47 +167,9 @@ class HAL():
                     await self._download_pdfs(names_urls)
 
 
-    async def get(
-        self, query: Optional[str]=None, from_date: Optional[str]=None,
-        from_hour: Optional[str]=None, to_date: Optional[datetime]=None,
-        to_hour: Optional[str]=None, pdf: Optional[bool]=None
-    ):
+    async def get(self):
         """Crawls through HAL and formats the returned documents concurantly.
-
-        Parameters
-        ----------
-        query: str, optional
-            Search keyword.
-        from_date: str, optional
-            Minimum date of deposit on HAL for a given paper.
-        from_hour: str, optional
-            Minimum hour of deposit on HAL for a given paper on ``from_date``
-            day.
-        to_date: str, optional
-            Mximum date of deposit on HAL for a given paper.
-        to_hour: str, optional
-            Maximum hour of deposit on HAL for a given paper on ``to_date``
-            day.
-        pdf: bool, optional
-            ``True`` if you want to download the PDFs locally while fetching
-            the metadatas from HAL.
         """
-        if query is not None:
-            self.query = query
-        if pdf is not None:
-            self.pdf = pdf
-        if from_date is not None:
-            from_hour = from_hour if from_hour is not None else "00:00:00"
-            self.date_last_index = \
-                f"&fq=dateLastIndexed_tdate:[{from_date}T{from_hour}Z "
-        else:
-            self.date_last_index = \
-                f"&fq=dateLastIndexed_tdate:[* "
-        if to_date is not None:
-            to_hour = to_hour if to_hour is not None else "00:00:00"
-            self.date_last_index += f"TO {to_date}T{to_hour}Z]"
-        else:
-            self.date_last_index += f"TO *]"
         queue = asyncio.Queue()
         await asyncio.gather(self._scrape(queue), self._format(queue))  # Queue like asynchronous task
 
