@@ -1,17 +1,18 @@
-# halversting/utils/api/hal.py
+# halvesting/services/api.py
 
+import os
 import logging
 import asyncio
 from urllib import parse
+from typing import Optional
 from datetime import datetime
-from typing import Optional, Dict
 
 import aiohttp
-import aiofiles
 import lxml.html
 import lxml.etree
 
 from halvesting.utils.data import Flusher, format_hal
+from halvesting.utils import check_dir
 
 
 _DOC_PER_JS = 1000
@@ -33,10 +34,6 @@ class HAL():
         Mximum date of deposit on HAL for a given paper.
     to_hour: str, optional
         Maximum hour of deposit on HAL for a given paper on ``to_date`` day.
-    pdf: bool, optional
-        ``True`` if you want to download the PDFs locally while fetching the
-        metadatas from HAL.
-
 
     Attributes
     ----------
@@ -54,9 +51,6 @@ class HAL():
         This string modifies the request to
         "[``from_date``T``from_hour``Z TO ``to_date``T``to_hour``Z]" in order
         to restrict the responses to a given time frame.
-    pdf: bool, optional
-        ``True`` if you want to download the PDFs locally while fetching the
-        metadatas from HAL.
     """
 
     _base_url = "https://api.archives-ouvertes.fr/search/?q="
@@ -65,10 +59,12 @@ class HAL():
     def __init__(
         self, query: Optional[str]=None, from_date: Optional[str]=None,
         from_hour: Optional[str]=None, to_date: Optional[datetime]=None,
-        to_hour: Optional[str]=None, pdf: Optional[bool]=None
+        to_hour: Optional[str]=None, response_dir: Optional[str]=None
     ):
         self._cursor_url = "*"
         self.query = query if query is not None else "*"
+        self.response_dir = response_dir \
+            if response_dir is not None else check_dir("./data/response")
         if from_date is not None:
             from_hour = from_hour if from_hour is not None else "00:00:00"
             self.date_last_index = \
@@ -81,11 +77,11 @@ class HAL():
             self.date_last_index += f"TO {to_date}T{to_hour}Z]"
         else:
             self.date_last_index += f"TO *]"
-        self.pdf = pdf if pdf is not None else False
 
 
     def __call__(self):
-        asyncio.run(self.get())
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(self.get())
 
 
     async def _scrape(self, queue: asyncio.Queue):
@@ -103,7 +99,7 @@ class HAL():
             xml_data = lxml.html.fromstring(data)
             measures = xml_data.findall(".//measure")
             search_results = int(measures[0].attrib["quantity"])        # Total number of match
-            logging.warning(f"Found {search_results} matchs")
+            logging.info(f"Found {search_results} matchs")
             document_results = int(measures[1].attrib["quantity"])      # Number of returned documents
 
             while document_results != 0:                                # While the API keeps finding matches
@@ -126,28 +122,8 @@ class HAL():
         await queue.put(None)
 
 
-    async def _download_pdf(
-        self, name: str, url: str, session: aiohttp.ClientSession
-    ):
-        async with session.get(url) as response:
-            async with aiofiles.open(
-                f"./data/pdfs/{name}.pdf", "wb"
-            ) as f:
-                await f.write(await response.read())
-
-
-    async def _download_pdfs(self, names_urls: Dict[str, str]):
-        async with aiohttp.ClientSession() as session:
-            await asyncio.gather(
-                *[
-                    self._download_pdf(name, url, session) \
-                    for name, url in names_urls.items()
-                ]
-            )
-
-
     async def _format(self, queue: asyncio.Queue):
-        with Flusher("./data/responses/hal", _DOC_PER_JS) as flusher:
+        with Flusher(self.response_dir, _DOC_PER_JS) as flusher:
             while True:
                 data = await queue.get()
 
@@ -156,13 +132,6 @@ class HAL():
 
                 formated_data = format_hal(data)
                 flusher.save(formated_data)
-
-                if self.pdf:
-                    names_urls = {
-                        data_point["halid"]: data_point["url"] \
-                        for data_point in formated_data
-                    }
-                    await self._download_pdfs(names_urls)
 
 
     async def get(self):

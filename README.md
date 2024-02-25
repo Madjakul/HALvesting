@@ -54,26 +54,6 @@ It is easier to modify the [`fetch_data.sh`](scripts/fetch_data.sh) directly and
 ./scripts/fetch_data.sh
 ```
 
-However, you can run the [`fetch_data.py`](fetch_data.py) script with appropriate arguments.
-```
-usage: fetch_data.py [--query QUERY] [--from_date %Y-%m-%d] [--from_hour %H:%M:%S] [--to_date %Y-%m-%d] [to_hour %H:%M:%S] [--pdf]
-
-Fetch data from HAL. Can also download PDFs locally.
-
-optional arguments:
-    --query QUERY
-        Search request.
-    --from_date %Y-%m-%d
-        Minimum deposit date on HAL.
-    --from_hour %H:%M:%S
-        Minimum deposit hour on a given day on HAL.
-    --to_date %Y-%m-%d
-        Maximum deposit date on HAL.
-    --to_hour %H:%M:%S
-        Maximum deposit hour on a given day on HAL.
-    --pdf
-        If you want to download PDFs or not. 
-```
 
 ### Post-process Data
 
@@ -82,21 +62,6 @@ After fetching data, you can perform post-processing using the `postprocess_data
 It is easier to modify the [`postprocess_data.sh`](scripts/postprocess_data.sh) directly and run it with
 ```sh
 ./scripts/postprocess_data.sh
-```
-
-However, you can run the [`postprocess_data.py`](postprocess_data.py) script with appropriate arguments.
-```
-usage: postprocess_data.py --js_folder JS_FOLDER --txt_folder TXT_FOLDER --hf_folder HF_FOLDER
-
-Format the fetched data in order to push them to HuggingFace.
-
-arguments:
-    --js_folder JS_FOLDER
-        Folder containing the previously fetched data.
-    --txt_folder TXT_FOLDER
-        Folder containing the fulltexts of the fetched papers.
-    --hf_folder HF_FOLDER
-        HuggingFace folder that will be pushed to hub.
 ```
 
 
@@ -120,3 +85,7 @@ If you find our work helpful, please cite the following:
 ## License
 
 This project is licensed under the [Apache License 2.0](LICENSE).
+
+---
+
+[FR] L'utilisation des données pour des effets de traitement, fouille et analyse de textes est autorisé selon cette loi : https://www.legifrance.gouv.fr/jorf/article_jo/JORFARTI000033202882

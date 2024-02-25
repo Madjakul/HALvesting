@@ -55,6 +55,26 @@ class FetcherArgParse():
             action="store_true",
             help="If you want PDFs to be downloaded on the fly or not."
         )
+        parser.add_argument(
+            "--response_dir",
+            type=str,
+            required=True,
+            help="Target directory used to store fetched data."
+        )
+        parser.add_argument(
+            "--pdf_dir",
+            type=str,
+            nargs="?",
+            const=None,
+            help="Target directory used to store PDFs."
+        )
+        parser.add_argument(
+            "--num_chunks",
+            type=int,
+            nargs="?",
+            const=None,
+            help="Number of semaphores."
+        )
         args, _ = parser.parse_known_args()
         return args
 

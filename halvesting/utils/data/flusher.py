@@ -1,5 +1,6 @@
-# halversting/utils/data/flusher.py
+# halvesting/utils/data/flusher.py
 
+import os
 import json
 from datetime import datetime
 from typing import List, Dict, Any
@@ -25,9 +26,9 @@ class Flusher():
         List containing each data point.
     """
 
-    def __init__(self, name: str, batch_size: int):
+    def __init__(self, dir: str, batch_size: int):
         self.batch_size = batch_size
-        self.name =  name
+        self.dir =  dir
         self.counter = 1
         self.batch = []
 
@@ -60,7 +61,8 @@ class Flusher():
         """
         now = datetime.now()
         now_s = now.strftime("%Y-%m-%d")
-        with open(f"{self.name}_{now_s}_{self.counter}.json", "w") as f:
+        js_file = os.path.join(self.dir, f"{now_s}_{self.counter}.json")
+        with open(js_file, "w") as f:
             json.dump(self.batch, f, ensure_ascii=False, indent=4)
             f.flush()
         self.batch.clear()
