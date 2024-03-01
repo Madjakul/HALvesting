@@ -81,11 +81,12 @@ def format_hal(data: HtmlElement):
             """
         )[0]
         lang = match.xpath(".//profiledesc/langusage/language/@ident")[0]
-        domain = match.xpath(
+        domain_ = match.xpath(
             """.//profiledesc/textclass
             /classcode[contains(@scheme, 'halDomain')]/@n
             """
-        )[0]
+        )
+        domain = domain_[0] if domain_ else ""
 
         parsed_data["halid"] = re.sub(r"(^.+)-(.+$)", r"\2", halid.text)
         parsed_data["lang"] = lang

@@ -98,14 +98,20 @@ class Postprocessing():
             iso_code = metadata["lang"]
             text = self._read_txt(metadata["halid"])
 
-            if text is None:
+            if not text:
                 continue
-                
+
             self.lang[iso_code]["nb_files"] += 1
 
             # Heuristic used to drop the corrupted txts.
             str_text = text.decode("utf-8")
-            pattern = re.compile("¼|¾")
+            if not str_text:
+                continue
+            pattern = re.compile("¼|¾|↕")
+            if re.search(pattern, str_text):
+                continue
+            # Empty files
+            pattern = re.compile(r"^[\s\n]*$")
             if re.search(pattern, str_text):
                 continue
 

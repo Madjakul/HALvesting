@@ -15,7 +15,7 @@ from halvesting.utils.data import Flusher, format_hal
 from halvesting.utils import check_dir
 
 
-_DOC_PER_JS = 1000
+_DOC_PER_JS = 10000
 
 
 class HAL():
@@ -54,7 +54,7 @@ class HAL():
     """
 
     _base_url = "https://api.archives-ouvertes.fr/search/?q="
-    _extended_url = "&fq=openAccess_bool:true&wt=xml-tei&sort=docid asc&rows=100&cursorMark="
+    _extended_url = "&fq=openAccess_bool:true&wt=xml-tei&sort=docid asc&rows=1000&cursorMark="
 
     def __init__(
         self, query: Optional[str]=None, from_date: Optional[str]=None,

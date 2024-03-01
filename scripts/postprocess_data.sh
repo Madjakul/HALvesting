@@ -5,7 +5,7 @@ DATA_ROOT=$PROJECT_ROOT/data                        # Do not modify
 
 # ************************** Customizable Arguments ***************************
 
-JS_FOLDER="responses"
+JS_FOLDER="responses_0"
 TXT_FOLDER="txts.zip"
 HF_FOLDER="hf"
 

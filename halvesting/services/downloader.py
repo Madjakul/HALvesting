@@ -29,7 +29,7 @@ class PDF():
 
     @classmethod
     def _get_urls(cls, response_dir: str):
-        js_files = os.listdir(response_dir)
+        js_files = os.listdir(response_dir)[:13]
 
 
         js_paths = [
@@ -83,13 +83,15 @@ class PDF():
                 try:
                     async with client_session.request("GET", url) \
                         as pdf_binary:
-                        return halid, await pdf_binary.content.read()
+                        pdf = await pdf_binary.content.read()
+                    return halid, pdf
                 except (
                     aiohttp.ServerDisconnectedError,
-                    aiohttp.ClientConnectorError
+                    aiohttp.ClientConnectorError,
+                    asyncio.TimeoutError
                 ):
                     logging.warning(
-                        f"Couldn't access {url} for document {halid}."
+                        f"Couldn't access {halid} at {url}"
                     )
                     return halid, None
 

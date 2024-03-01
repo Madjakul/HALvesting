@@ -5,11 +5,11 @@ DATA_ROOT=$PROJECT_ROOT/data                        # Do not modify
 
 # ************************** Customizable Arguments ***************************
 
-# RESPONSE_DIR=""
+RESPONSE_DIR="./data/responses_0"
 
 # -------------------------- Optional Arguments -------------------------------
-QUERY="Laurent Romary"
-FROM_DATE="2023-01-01"
+# QUERY="Laurent Romary"
+FROM_DATE="2001-01-01"
 FROM_HOUR="00:00:00"
 TO_DATE="2023-08-31"
 TO_HOUR="23:59:59"
