@@ -8,7 +8,7 @@ DATA_ROOT=$PROJECT_ROOT/data                        # Do not modify
 RESPONSE_DIR="./data/responses_0"
 
 # -------------------------- Optional Arguments -------------------------------
-# QUERY="Laurent Romary"
+QUERY="*"
 FROM_DATE="2001-01-01"
 FROM_HOUR="00:00:00"
 TO_DATE="2023-08-31"

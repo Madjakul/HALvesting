@@ -29,7 +29,7 @@ class PDF():
 
     @classmethod
     def _get_urls(cls, response_dir: str):
-        js_files = os.listdir(response_dir)[:13]
+        js_files = os.listdir(response_dir)
 
 
         js_paths = [
@@ -146,4 +146,3 @@ class PDF():
         )
         end = time.time()
         logging.info(f"Time: {end - start}")
-

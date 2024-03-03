@@ -47,7 +47,7 @@ def format_hal(data: HtmlElement):
 
     Returns
     -------
-    new_data: List[Dict[str, str]]
+    new_data: List[Dict[str, Any]]
         Formatted data.
     """
     new_data = []
@@ -81,16 +81,15 @@ def format_hal(data: HtmlElement):
             """
         )[0]
         lang = match.xpath(".//profiledesc/langusage/language/@ident")[0]
-        domain_ = match.xpath(
+        domain = match.xpath(
             """.//profiledesc/textclass
             /classcode[contains(@scheme, 'halDomain')]/@n
             """
         )
-        domain = domain_[0] if domain_ else ""
 
         parsed_data["halid"] = re.sub(r"(^.+)-(.+$)", r"\2", halid.text)
         parsed_data["lang"] = lang
-        parsed_data["domain"] = re.sub(r"(^.+)\.(.+$)", r"\1", domain)
+        parsed_data["domain"] = domain
         parsed_data["timestamp"] = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
         parsed_data["year"] = extract_year(date.text)
         # Sometimes, several PDFs are submitted by a depositor. We assume the
@@ -98,4 +97,3 @@ def format_hal(data: HtmlElement):
         parsed_data["url"] = pdf[0].attrib["target"]
         new_data.append(parsed_data)
     return new_data
-
