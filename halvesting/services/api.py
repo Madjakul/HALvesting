@@ -1,6 +1,5 @@
 # halvesting/services/api.py
 
-import os
 import logging
 import asyncio
 from urllib import parse
@@ -34,6 +33,9 @@ class HAL():
         Mximum date of deposit on HAL for a given paper.
     to_hour: str, optional
         Maximum hour of deposit on HAL for a given paper on ``to_date`` day.
+    response_dir: str, optional
+        Path to the directory containing the `json` files with papers'
+        metadata.
 
     Attributes
     ----------
@@ -51,6 +53,9 @@ class HAL():
         This string modifies the request to
         "[``from_date``T``from_hour``Z TO ``to_date``T``to_hour``Z]" in order
         to restrict the responses to a given time frame.
+    response_dir: str, default="./data/responses"
+        Path to the directory containing the `json` files with papers'
+        metadata.
     """
 
     _base_url = "https://api.archives-ouvertes.fr/search/?q="
@@ -63,7 +68,7 @@ class HAL():
     ):
         self._cursor_url = "*"
         self.query = query if query is not None else "*"
-        self.response_dir = response_dir \
+        self.response_dir = check_dir(response_dir) \
             if response_dir is not None else check_dir("./data/response")
         if from_date is not None:
             from_hour = from_hour if from_hour is not None else "00:00:00"

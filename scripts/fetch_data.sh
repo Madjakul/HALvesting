@@ -5,13 +5,13 @@ DATA_ROOT=$PROJECT_ROOT/data                        # Do not modify
 
 # ************************** Customizable Arguments ***************************
 
-RESPONSE_DIR="./data/responses_0"
+RESPONSE_DIR="/mnt/e/PHD/Datasets/responses_0"
 
 # -------------------------- Optional Arguments -------------------------------
 QUERY="*"
-FROM_DATE="2001-01-01"
+FROM_DATE="2023-09-01"
 FROM_HOUR="00:00:00"
-TO_DATE="2023-08-31"
+TO_DATE="2023-09-30"
 TO_HOUR="23:59:59"
 
 PDF=1

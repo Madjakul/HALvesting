@@ -146,3 +146,4 @@ class PDF():
         )
         end = time.time()
         logging.info(f"Time: {end - start}")
+
