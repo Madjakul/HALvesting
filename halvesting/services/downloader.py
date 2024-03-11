@@ -65,7 +65,7 @@ class PDF():
             Parameters
             ----------
             halid: str
-                The halid of the PDF to be donwloaded.
+                The halid of the PDF to be downloaded.
             url: str
                 URLs used to download the PDF.
             client_session: ClientSession
@@ -130,7 +130,7 @@ class PDF():
         response_dir: str
             Directory containing the fetched data from HAL in `json` files.
         pdf_dir: str
-            Target directory to downlaod the PDFs.
+            Target directory to download the PDFs.
         num_chunks: int
             Number of semaphores.
         """

@@ -28,9 +28,9 @@ class HAL():
     from_date: str, optional
         Minimum date of deposit on HAL for a given paper.
     from_hour: str, optional
-        Minimum hour of deposit on HAL for a given paper on ``from_date`` day.
+        Earliest hour of deposit on HAL for a given paper on ``from_date`` day.
     to_date: str, optional
-        Mximum date of deposit on HAL for a given paper.
+        Latest date of deposit on HAL for a given paper.
     to_hour: str, optional
         Maximum hour of deposit on HAL for a given paper on ``to_date`` day.
     response_dir: str, optional

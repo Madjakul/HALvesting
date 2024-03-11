@@ -5,7 +5,7 @@ DATA_ROOT=$PROJECT_ROOT/data                        # Do not modify
 
 # ************************** Customizable Arguments ***************************
 
-RESPONSE_DIR="/mnt/e/PHD/Datasets/responses_0"
+RESPONSE_DIR="$DATA_ROOT/responses_0"
 
 # -------------------------- Optional Arguments -------------------------------
 QUERY="*"
@@ -15,8 +15,8 @@ TO_DATE="2023-09-30"
 TO_HOUR="23:59:59"
 
 PDF=1
-PDF_DIR="./data/pdfs"   # Mendatory if PDF
-NUM_CHUNKS=100          # mendatory if PDF
+PDF_DIR="$DATA_ROOT/pdfs"   # Mandatory if PDF
+NUM_CHUNKS=100              # mandatory if PDF
 # -----------------------------------------------------------------------------
 
 # *****************************************************************************
@@ -31,8 +31,8 @@ center() {
 mkdir logs
 
 
-cmd=( python3 fetch_data.py \
-  --response_dir ${RESPONSE_DIR:-"./data/responses"} )
+cmd=( python3 $PROJECT_ROOT/fetch_data.py \
+  --response_dir ${RESPONSE_DIR:-"$DATA_ROOT/pdfs"} )
 
 if [[ -v QUERY ]]; then
   cmd+=( --query "$QUERY" )

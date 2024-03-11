@@ -20,7 +20,7 @@ center() {
 
 mkdir logs
 
-cmd=( python3 postprocess_data.py \
+cmd=( python3 $PROJECT_ROOT/postprocess_data.py \
   --js_folder "$DATA_ROOT/$JS_FOLDER" \
   --txt_folder "$DATA_ROOT/$TXT_FOLDER" \
   --hf_folder "$DATA_ROOT/$HF_FOLDER" )
