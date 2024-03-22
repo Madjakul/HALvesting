@@ -3,14 +3,13 @@
 import logging
 
 from halvesting.services import HAL, PDF
-from halvesting.utils import  FetcherArgParse, logging_config
-
+from halvesting.utils import FetcherArgParse, logging_config
 
 logging_config()
 WIDTH = 139
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     args = FetcherArgParse.parse_known_args()
     logging.info(f"{('=' * WIDTH)}")
     logging.info(f"Fetching from HAL".center(WIDTH))
@@ -22,7 +21,7 @@ if __name__=="__main__":
         from_hour=args.from_hour if args.from_hour else None,
         to_date=args.to_date if args.to_date else None,
         to_hour=args.to_hour if args.to_hour else None,
-        response_dir=args.response_dir
+        response_dir=args.response_dir,
     )
     hal()
 
@@ -33,6 +32,5 @@ if __name__=="__main__":
         PDF.download(
             response_dir=args.response_dir,
             pdf_dir=args.pdf_dir,
-            num_chunks=args.num_chunks
+            num_chunks=args.num_chunks,
         )
-

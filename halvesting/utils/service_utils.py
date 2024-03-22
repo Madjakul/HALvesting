@@ -1,7 +1,7 @@
 # halvesting/utils/service_utils.py
 
-import os
 import logging
+import os
 
 
 def check_dir(path: str):
@@ -22,4 +22,3 @@ def check_dir(path: str):
     logging.warning(f"No folder with name {path}: creating folder at path.")
     os.makedirs(path)
     return path
-

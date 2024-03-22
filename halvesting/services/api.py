@@ -1,23 +1,22 @@
 # halvesting/services/api.py
 
-import logging
 import asyncio
-from urllib import parse
-from typing import Optional
+import logging
 from datetime import datetime
+from typing import Optional
+from urllib import parse
 
 import aiohttp
-import lxml.html
 import lxml.etree
+import lxml.html
 
-from halvesting.utils.data import Flusher, format_hal
 from halvesting.utils import check_dir
-
+from halvesting.utils.data import Flusher, format_hal
 
 _DOC_PER_JS = 10000
 
 
-class HAL():
+class HAL:
     """Class used to interact with the
     `HAL's API https://api.archives-ouvertes.fr/docs`__.
 
@@ -59,42 +58,49 @@ class HAL():
     """
 
     _base_url = "https://api.archives-ouvertes.fr/search/?q="
-    _extended_url = "&fq=openAccess_bool:true&wt=xml-tei&sort=docid asc&rows=500&cursorMark="
+    _extended_url = (
+        "&fq=openAccess_bool:true&wt=xml-tei&sort=docid asc&rows=500&cursorMark="
+    )
 
     def __init__(
-        self, query: Optional[str]=None, from_date: Optional[str]=None,
-        from_hour: Optional[str]=None, to_date: Optional[datetime]=None,
-        to_hour: Optional[str]=None, response_dir: Optional[str]=None
+        self,
+        query: Optional[str] = None,
+        from_date: Optional[str] = None,
+        from_hour: Optional[str] = None,
+        to_date: Optional[datetime] = None,
+        to_hour: Optional[str] = None,
+        response_dir: Optional[str] = None,
     ):
         self._cursor_url = "*"
         self.query = query if query is not None else "*"
-        self.response_dir = check_dir(response_dir) \
-            if response_dir is not None else check_dir("./data/response")
+        self.response_dir = (
+            check_dir(response_dir)
+            if response_dir is not None
+            else check_dir("./data/response")
+        )
         if from_date is not None:
             from_hour = from_hour if from_hour is not None else "00:00:00"
-            self.date_last_index = \
+            self.date_last_index = (
                 f"&fq=dateLastIndexed_tdate:[{from_date}T{from_hour}Z "
+            )
         else:
-            self.date_last_index = \
-                f"&fq=dateLastIndexed_tdate:[* "
+            self.date_last_index = f"&fq=dateLastIndexed_tdate:[* "
         if to_date is not None:
             to_hour = to_hour if to_hour is not None else "00:00:00"
             self.date_last_index += f"TO {to_date}T{to_hour}Z]"
         else:
             self.date_last_index += f"TO *]"
 
-
     def __call__(self):
         loop = asyncio.get_event_loop()
         loop.run_until_complete(self.get())
-
 
     async def _scrape(self, queue: asyncio.Queue):
         url = parse.quote(
             f"{self._base_url}{self.query}{self.date_last_index}"
             + f"{self._extended_url}{self._cursor_url}",
-            safe="?/:&=*+-_[]"
-        )                                                               # base url
+            safe="?/:&=*+-_[]",
+        )  # base url
         logging.info(url)
 
         async with aiohttp.ClientSession() as session:
@@ -103,17 +109,19 @@ class HAL():
 
             xml_data = lxml.html.fromstring(data)
             measures = xml_data.findall(".//measure")
-            search_results = int(measures[0].attrib["quantity"])        # Total number of match
+            # Total number of match
+            search_results = int(measures[0].attrib["quantity"])
             logging.info(f"Found {search_results} matchs")
-            document_results = int(measures[1].attrib["quantity"])      # Number of returned documents
+            # Number of returned documents
+            document_results = int(measures[1].attrib["quantity"])
 
-            while document_results != 0:                                # While the API keeps finding matches
+            while document_results != 0:  # While the API keeps finding matches
                 await queue.put(xml_data)
                 self._cursor_url = xml_data.attrib["next"]
                 url = parse.quote(
                     f"{self._base_url}{self.query}{self.date_last_index}"
                     + f"{self._extended_url}{self._cursor_url}",
-                    safe="?/:&=*+-_[]"
+                    safe="?/:&=*+-_[]",
                 )
                 logging.info(url)
 
@@ -122,10 +130,10 @@ class HAL():
 
                 xml_data = lxml.html.fromstring(data)
                 measures = xml_data.findall(".//measure")
-                document_results = int(measures[1].attrib["quantity"])  # Number of returned documents
+                # Number of returned documents
+                document_results = int(measures[1].attrib["quantity"])
 
         await queue.put(None)
-
 
     async def _format(self, queue: asyncio.Queue):
         with Flusher(self.response_dir, _DOC_PER_JS) as flusher:
@@ -138,10 +146,9 @@ class HAL():
                 formated_data = format_hal(data)
                 flusher.save(formated_data)
 
-
     async def get(self):
-        """Crawls through HAL and formats the returned documents concurantly.
-        """
+        """Crawls through HAL and formats the returned documents
+        concurantly."""
         queue = asyncio.Queue()
-        await asyncio.gather(self._scrape(queue), self._format(queue))  # Queue like asynchronous task
-
+        # Queue like asynchronous task
+        await asyncio.gather(self._scrape(queue), self._format(queue))

@@ -3,9 +3,8 @@
 import argparse
 
 
-class FetcherArgParse():
-    """Argument parser used to fetch data from HAL.
-    """
+class FetcherArgParse:
+    """Argument parser used to fetch data from HAL."""
 
     @classmethod
     def parse_known_args(cls):
@@ -16,72 +15,69 @@ class FetcherArgParse():
         args: Any
             Parsed arguments.
         """
-        parser = argparse.ArgumentParser(
-            description="Arguments used to fetch data."
-        )
+        parser = argparse.ArgumentParser(description="Arguments used to fetch data.")
         parser.add_argument(
             "--query",
             type=str,
             nargs="?",
             const=None,
-            help="Query used to request APIs."
+            help="Query used to request APIs.",
         )
         parser.add_argument(
             "--from_date",
             type=str,
             default=argparse.SUPPRESS,
-            help="Date of the last update"
+            help="Date of the last update",
         )
         parser.add_argument(
             "--from_hour",
             type=str,
             default=argparse.SUPPRESS,
-            help="Hour of the last update"
+            help="Hour of the last update",
         )
         parser.add_argument(
             "--to_date",
             type=str,
             default=argparse.SUPPRESS,
-            help="Date of the last document submitted."
+            help="Date of the last document submitted.",
         )
         parser.add_argument(
             "--to_hour",
             type=str,
             default=argparse.SUPPRESS,
-            help="Hour of the last document submitted."
+            help="Hour of the last document submitted.",
         )
         parser.add_argument(
             "--pdf",
             action="store_true",
-            help="If you want PDFs to be downloaded on the fly or not."
+            help="If you want PDFs to be downloaded on the fly or not.",
         )
         parser.add_argument(
             "--response_dir",
             type=str,
             required=True,
-            help="Target directory used to store fetched data."
+            help="Target directory used to store fetched data.",
         )
         parser.add_argument(
             "--pdf_dir",
             type=str,
             nargs="?",
             const=None,
-            help="Target directory used to store PDFs."
+            help="Target directory used to store PDFs.",
         )
         parser.add_argument(
             "--num_chunks",
             type=int,
             nargs="?",
             const=None,
-            help="Number of semaphores."
+            help="Number of semaphores.",
         )
         args, _ = parser.parse_known_args()
         return args
 
 
-class PostprocessArgParse():
-    """Argument parser used to build data for HuggingFace.
-    """
+class PostprocessArgParse:
+    """Argument parser used to build data for HuggingFace."""
 
     @classmethod
     def parse_known_args(cls):
@@ -92,27 +88,24 @@ class PostprocessArgParse():
         args: Any
             Parsed arguments.
         """
-        parser = argparse.ArgumentParser(
-            description="Arguments used to fetch data."
-        )
+        parser = argparse.ArgumentParser(description="Arguments used to fetch data.")
         parser.add_argument(
             "--js_folder",
             type=str,
             required=True,
-            help="Folder containing fetched data."
+            help="Folder containing fetched data.",
         )
         parser.add_argument(
             "--txt_folder",
             type=str,
             required=True,
-            help="Folder containing the txt files."
+            help="Folder containing the txt files.",
         )
         parser.add_argument(
             "--hf_folder",
             type=str,
             required=True,
-            help="Final folder containing the processed data for HuggingFace."
+            help="Final folder containing the processed data for HuggingFace.",
         )
         args, _ = parser.parse_known_args()
         return args
-

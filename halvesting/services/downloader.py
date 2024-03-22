@@ -1,23 +1,22 @@
 # halevesting/services/pdf_downloader.py
 
+import asyncio
+import json
+import logging
 import os
 import sys
 import time
-import json
-import logging
 
-import aiohttp
-import asyncio
 import aiofiles
+import aiohttp
 from tqdm import tqdm
 
 from halvesting.utils import check_dir
 
+_CONNECTOR = aiohttp.TCPConnector(force_close=True)
 
-_CONNECTOR =  aiohttp.TCPConnector(force_close=True)
 
-
-class PDF():
+class PDF:
     """Class used to download PDF files from a list of URLs contained within a
     `json` file.
 
@@ -31,9 +30,9 @@ class PDF():
     def _get_urls(cls, response_dir: str):
         js_files = os.listdir(response_dir)
 
-
         js_paths = [
-            os.path.join(response_dir, js_file) for js_file in js_files \
+            os.path.join(response_dir, js_file)
+            for js_file in js_files
             if js_file.endswith(".json")
         ]
 
@@ -51,15 +50,12 @@ class PDF():
                 url = paper["url"]
                 yield halid, url
 
-
     @classmethod
     def _chunked_http_client(cls, num_chunks: int):
 
         semaphore = asyncio.Semaphore(num_chunks)
 
-        async def http_get(
-            halid: str, url: str, client_session: aiohttp.ClientSession
-        ):
+        async def http_get(halid: str, url: str, client_session: aiohttp.ClientSession):
             """Asynchronous requester.
 
             Parameters
@@ -81,33 +77,26 @@ class PDF():
             nonlocal semaphore
             async with semaphore:
                 try:
-                    async with client_session.request("GET", url) \
-                        as pdf_binary:
+                    async with client_session.request("GET", url) as pdf_binary:
                         pdf = await pdf_binary.content.read()
                     return halid, pdf
                 except (
                     aiohttp.ServerDisconnectedError,
                     aiohttp.ClientConnectorError,
-                    asyncio.TimeoutError
+                    asyncio.TimeoutError,
                 ):
-                    logging.warning(
-                        f"Couldn't access {halid} at {url}"
-                    )
+                    logging.warning(f"Couldn't access {halid} at {url}")
                     return halid, None
 
         return http_get
 
-
     @classmethod
-    async def _download(cls, response_dir: str,  pdf_dir: str, num_chunks: int):
+    async def _download(cls, response_dir: str, pdf_dir: str, num_chunks: int):
         urls = cls._get_urls(response_dir)
         http_client = cls._chunked_http_client(num_chunks)
 
-        async with aiohttp.ClientSession(connector=_CONNECTOR) \
-            as client_session:
-            tasks = [
-                http_client(halid, url, client_session) for halid, url in urls
-            ]
+        async with aiohttp.ClientSession(connector=_CONNECTOR) as client_session:
+            tasks = [http_client(halid, url, client_session) for halid, url in urls]
             for future in tqdm(asyncio.as_completed(tasks)):
                 halid, pdf = await future
 
@@ -118,7 +107,6 @@ class PDF():
                 logging.info(pdf_file)
                 async with aiofiles.open(pdf_file, "wb") as f:
                     await f.write(pdf)
-
 
     @classmethod
     def download(cls, response_dir: str, pdf_dir: str, num_chunks: int):
@@ -141,9 +129,6 @@ class PDF():
 
         loop = asyncio.get_event_loop()
         start = time.time()
-        loop.run_until_complete(
-            cls._download(response_dir, pdf_dir, num_chunks)
-        )
+        loop.run_until_complete(cls._download(response_dir, pdf_dir, num_chunks))
         end = time.time()
         logging.info(f"Time: {end - start}")
-

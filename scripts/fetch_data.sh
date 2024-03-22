@@ -31,8 +31,8 @@ center() {
 mkdir logs
 
 
-cmd=( python3 $PROJECT_ROOT/fetch_data.py \
-  --response_dir ${RESPONSE_DIR:-"$DATA_ROOT/pdfs"} )
+cmd=( python3 "$PROJECT_ROOT/fetch_data.py" \
+  --response_dir "${RESPONSE_DIR:-"$DATA_ROOT/pdfs"}" )
 
 if [[ -v QUERY ]]; then
   cmd+=( --query "$QUERY" )
@@ -59,4 +59,3 @@ fi
 center "Fetching Data from HAL"
 "${cmd[@]}"
 center "Done"
-

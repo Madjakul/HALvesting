@@ -1,7 +1,7 @@
 # halversting/utils/data/preprocessing.py
 
-import re
 import logging
+import re
 from datetime import datetime
 
 from lxml.html import HtmlElement
@@ -54,9 +54,7 @@ def format_hal(data: HtmlElement):
     # For every publication returned
     for match in data.xpath("//text/listbibl/biblfull"):
         # Try to find a PDF file submitted
-        pdf = match.xpath(
-            ".//editionstmt/edition/ref[contains(@subtype, 'author')]"
-        )
+        pdf = match.xpath(".//editionstmt/edition/ref[contains(@subtype, 'author')]")
 
         # If no file submitted for this publication, pass
         if len(pdf) == 0:
@@ -66,9 +64,8 @@ def format_hal(data: HtmlElement):
             continue
         # If the PDF is under embargo (closed access)
         if (
-            datetime.strptime(
-                pdf[0].xpath(".//date/@notbefore")[0], "%Y-%m-%d"
-            ) > datetime.now()
+            datetime.strptime(pdf[0].xpath(".//date/@notbefore")[0], "%Y-%m-%d")
+            > datetime.now()
         ):
             continue
 
