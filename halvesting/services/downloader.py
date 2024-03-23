@@ -1,4 +1,4 @@
-# halevesting/services/pdf_downloader.py
+# halvesting/services/downloader.py
 
 import asyncio
 import json
@@ -18,7 +18,7 @@ _CONNECTOR = aiohttp.TCPConnector(force_close=True)
 
 class PDF:
     """Class used to download PDF files from a list of URLs contained within a
-    `json` file.
+    JSON file.
 
     Examples
     --------
@@ -28,6 +28,18 @@ class PDF:
 
     @classmethod
     def _get_urls(cls, response_dir: str):
+        """Get PDF URLs from JSON files.
+
+        Parameters
+        ----------
+        response_dir : str
+            Directory containing the fetched data from HAL in JSON files.
+
+        Yields
+        ------
+        Tuple[str, str]
+            Tuple containing halid and PDF URL.
+        """
         js_files = os.listdir(response_dir)
 
         js_paths = [
@@ -92,6 +104,17 @@ class PDF:
 
     @classmethod
     async def _download(cls, response_dir: str, pdf_dir: str, num_chunks: int):
+        """Download PDFs from URLs found in response_dir's documents.
+
+        Parameters
+        ----------
+        response_dir : str
+            Directory containing the fetched data from HAL in JSON files.
+        pdf_dir : str
+            Target directory to download the PDFs.
+        num_chunks : int
+            Number of semaphores.
+        """
         urls = cls._get_urls(response_dir)
         http_client = cls._chunked_http_client(num_chunks)
 
@@ -110,13 +133,12 @@ class PDF:
 
     @classmethod
     def download(cls, response_dir: str, pdf_dir: str, num_chunks: int):
-        """Download PDFs from URLs found in `response_dir`'s documents. The
-        PDFs can be found at `pdf_dir`
+        """Download PDFs from URLs found in response_dir's documents.
 
         Parameters
         ----------
         response_dir: str
-            Directory containing the fetched data from HAL in `json` files.
+            Directory containing the fetched data from HAL in JSON files.
         pdf_dir: str
             Target directory to download the PDFs.
         num_chunks: int

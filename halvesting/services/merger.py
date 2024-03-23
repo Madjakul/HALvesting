@@ -17,38 +17,34 @@ _DOC_PER_JS = 1000
 
 
 class Merger:
-    """Formats the papers in json lines format and compresses it. Papers
-    written in the same language are compiled in a same json lines file, before
-    being put in a folder titled with it ISO 639 language code.
+    """Formats the papers in JSON lines format and compresses it. Papers
+    written in the same language are compiled in a same JSON lines file, before
+    being put in a folder titled with its ISO 639 language code.
 
     Parameters
     ----------
     js_folder: str
-        Path to the folder containing the formatted response from the HAL's
-        API.
-    txt_folder:
-        Path to the folder containing the fulltext of each paper in a `txt`
-        format.
+        Path to the folder containing the formatted response from the HAL's API.
+    txt_folder: str
+        Path to the folder containing the fulltext of each paper in a `txt` format.
     hf_folder: str
         Path to the folder where the postprocessed data will be written into.
 
     Attributes
     ----------
     js_folder: str
-        Path to the folder containing the formatted response from the HAL's
-        API.
-    txt_folder:
-        Path to the folder containing the fulltext of each paper in a `txt`
-        format.
+        Path to the folder containing the formatted response from the HAL's API.
+    txt_folder: str
+        Path to the folder containing the fulltext of each paper in a `txt` format.
     hf_folder: str
         Path to the folder where the postprocessed data will be written into.
     lang: defaultdict(lambda: defaultdict(int))
-        This dictionary stores each ISO 639 language code encountered on HAL
-        and count the number of papers in a given language. Once the number of
-        papers for a given language reaches ``_DOC_PER_JS``, a new json lines
-        file is written to disk, compressed and stored in the correct folder.
-        A second counter is then incremented to keep track of the number of
-        json lines file for a given language.
+        This dictionary stores each ISO 639 language code encountered on HAL and counts
+        the number of papers in a given language. Once the number of papers for a given
+        language reaches `_DOC_PER_JS`, a new JSON lines file is written to disk,
+        compressed, and stored in the correct folder. A second counter is then
+        incremented to keep track of the number of JSON lines files for a given
+        language.
     """
 
     def __init__(self, js_folder: str, txt_folder: str, hf_folder: str):
@@ -62,6 +58,13 @@ class Merger:
         asyncio.run(self.postprocess())
 
     async def _get_papers(self, queue: asyncio.Queue):
+        """Retrieves papers' metadata from JSON files asynchronously.
+
+        Parameters
+        ----------
+        queue : asyncio.Queue
+            Asynchronous queue to store papers' metadata.
+        """
         js_files = os.listdir(self.js_folder)
         for js_file in js_files:
             async with aiofiles.open(
@@ -74,6 +77,15 @@ class Merger:
         await queue.put(None)
 
     async def _append_metadata(self, metadata: Dict[str, str], lang: str):
+        """Appends metadata to JSON lines file.
+
+        Parameters
+        ----------
+        metadata : Dict[str, str]
+            Metadata of the paper.
+        lang : str
+            ISO 639 language code.
+        """
         folder = f"{self.hf_folder}/{lang}"
         if not os.path.exists(folder):
             os.makedirs(folder)
@@ -83,6 +95,13 @@ class Merger:
             await jf.write(json.dumps(metadata, ensure_ascii=False) + "\n")
 
     async def _format(self, queue: asyncio.Queue):
+        """Formats papers' metadata and full text asynchronously.
+
+        Parameters
+        ----------
+        queue : asyncio.Queue
+            Asynchronous queue containing papers' metadata.
+        """
         while True:
             metadata = await queue.get()
 
@@ -121,6 +140,7 @@ class Merger:
                 continue
 
     def _get_last_idx(self):
+        """Retrieves the last index for each language."""
         langs = os.listdir(self.hf_folder)
         if not langs:
             return
@@ -131,6 +151,18 @@ class Merger:
             self.lang[iso_code]["counter"] = latest_index + 1
 
     def _read_txt(self, halid: str):
+        """Reads full text from the TXT file.
+
+        Parameters
+        ----------
+        halid : str
+            HAL ID of the paper.
+
+        Returns
+        -------
+        bytes
+            Full text of the paper in bytes format.
+        """
         with zipfile.ZipFile(self.txt_folder, "r", zipfile.ZIP_DEFLATED) as zf:
             path = f"txts/{halid}.grobid.txt"
             if path in zf.namelist():
@@ -141,6 +173,13 @@ class Merger:
         return text
 
     def _compress(self, lang: str):
+        """Compresses the JSON lines files for a given language into a tarball.
+
+        Parameters
+        ----------
+        lang : str
+            ISO 639 language code.
+        """
         folder = f"{self.hf_folder}/{lang}"
         path_template = f"{folder}/{lang}-{self.lang[lang]['counter']}"
         tgz_filename = f"{path_template}.tar.gz"
@@ -153,6 +192,17 @@ class Merger:
         self.lang[lang]["nb_files"] = 0
 
     def _generate_checksum(self, lang: str, folder: str, tgz_filename: str):
+        """Generates a checksum for the compressed tarball file.
+
+        Parameters
+        ----------
+        lang : str
+            ISO 639 language code.
+        folder : str
+            Path to the folder.
+        tgz_filename : str
+            Name of the compressed tarball file.
+        """
         checksum_filename = f"{folder}/checksum.sha256"
 
         hasher = hashlib.sha256()
@@ -168,8 +218,8 @@ class Merger:
             f.write(f"{checksum}\t{lang}-{self.lang[lang]['counter']}.tar.gz\n")
 
     async def postprocess(self):
-        """Computes a queue like asynchronous routine that get the preprocessed
-        responses from HAL with their fulltext and format it in json lines
-        files before compressing them."""
+        """Asynchronously computes the post-processing routine that gets the
+        preprocessed responses from HAL with their fulltext and formats it in
+        JSON lines files before compressing them."""
         queue = asyncio.Queue()
         await asyncio.gather(self._get_papers(queue), self._format(queue))

@@ -1,4 +1,4 @@
-# halversting/utils/data/preprocessing.py
+# halvesting/utils/data/preprocessing.py
 
 import logging
 import re
@@ -12,15 +12,14 @@ def extract_year(date_string: str):
 
     Parameters
     ----------
-    date_string: str
-        Paper's production's date. The format is always `%Y-%m-%d` but the
-        precision can be mixed.
+    date_string : str
+        Paper's production date. The format is always `%Y-%m-%d` but the precision can
+        be mixed.
 
     Returns
     -------
-    year: str
-        Production's year. If the date can't be parsed, the default year
-        returned is '1'.
+    str
+        Production year. If the date can't be parsed, the default year returned is '1'.
     """
     try:
         date_obj = datetime.strptime(date_string, "%Y-%m-%d")
@@ -38,12 +37,12 @@ def extract_year(date_string: str):
 
 
 def format_hal(data: HtmlElement):
-    """Parses the ``xml`` response from HAL.
+    """Parses the XML response from HAL.
 
     Parameters
     ----------
-    data: lxml.html.HtmlElement
-        Parsed xml response from HAL.
+    data : lxml.html.HtmlElement
+        Parsed XML response from HAL.
 
     Returns
     -------
