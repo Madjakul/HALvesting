@@ -3,12 +3,50 @@
 import re
 import string
 import unicodedata
+from typing import Dict
 
 from nltk.tokenize import WordPunctTokenizer
 from transformers import AutoTokenizer
 
 PRECISION = 2
 TRANSLATION_TABLE_PUNCTUATION = str.maketrans("", "", string.punctuation)
+NON_PRINTING_CHAR_RE: re.Pattern = re.compile(f"[{''.join(map(chr, list(range(0,32)) + list(range(127,160))))}]")
+DIGIT_RE: re.Pattern = re.compile(r"\d")
+UNICODE_PUNCTUATION: Dict[str, str] = {
+    "，": ",",
+    "。": ".",
+    "、": ",",
+    "„": '"',
+    "”": '"',
+    "“": '"',
+    "«": '"',
+    "»": '"',
+    "１": '"',
+    "」": '"',
+    "「": '"',
+    "《": '"',
+    "》": '"',
+    "´": "'",
+    "∶": ":",
+    "：": ":",
+    "？": "?",
+    "！": "!",
+    "（": "(",
+    "）": ")",
+    "；": ";",
+    "–": "-",
+    "—": " ",
+    "～": "~",
+    "’": "'",
+    "…": "...",
+    "━": "-",
+    "〈": "<",
+    "〉": ">",
+    "【": "[",
+    "】": "]",
+    "％": "%",
+    "►": "-",
+}
 
 
 class Postprocessing:
