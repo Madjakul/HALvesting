@@ -76,7 +76,7 @@ class FetcherArgParse:
         return args
 
 
-class PostprocessArgParse:
+class MergerArgParse:
     """Argument parser used to build data for HuggingFace."""
 
     @classmethod
@@ -106,6 +106,75 @@ class PostprocessArgParse:
             type=str,
             required=True,
             help="Final folder containing the processed data for HuggingFace.",
+        )
+        args, _ = parser.parse_known_args()
+        return args
+
+
+class EnrisherArgParse:
+    """Argument parser used to enrish the HuggingFace dataset."""
+
+    @classmethod
+    def parse_known_args(cls):
+        """Parses arguments.
+
+        Returns
+        -------
+        args: Any
+            Parsed arguments.
+        """
+        parser = argparse.ArgumentParser(
+            description="Download Sentencepiece and KenLM models for supported languages."
+        )
+        parser.add_argument(
+            "--output_dir_path",
+            type=str,
+            default=None,
+            help="Output directory path to save models.",
+        )
+        parser.add_argument(
+            "--langs",
+            type=str,
+            default="all",
+            help="Languages to download models for. Default is all supported languages.",
+        )
+        parser.add_argument(
+            "--dataset_name",
+            type=str,
+            help="Name of the dataset to be processed.",
+        )
+        parser.add_argument(
+            "--dataset_config_names",
+            type=str,
+            default=None,
+            help="Comma-separated list of dataset config names to be processed.",
+        )
+        parser.add_argument(
+            "--kenlm_dir_path",  # Change to output dir
+            type=str,
+            help="Path to the directory containing the sentencepiece and kenlm models.",
+        )
+        parser.add_argument(
+            "--fasttext_model_file",
+            type=str,
+            help="Path to the fasttext model file.",
+        )
+        parser.add_argument(
+            "--hf_model_name",
+            type=str,
+            default="google/mt5-small",
+            help="Name of the Hugging Face model to be used for tokenization.",
+        )
+        parser.add_argument(
+            "--output_dir_path",  # change to dataset_dir_path
+            type=str,
+            help="Path to the directory where the processed dataset will be saved.",
+        )
+        parser.add_argument(
+            "--num_proc",
+            type=int,
+            default=1,
+            help="Number of processes to use for processing the dataset.",
         )
         args, _ = parser.parse_known_args()
         return args

@@ -2,11 +2,6 @@
 
 import logging
 import os
-import re
-from typing import Dict
-
-
-
 
 
 def check_dir(path: str):
@@ -24,6 +19,6 @@ def check_dir(path: str):
     """
     if os.path.isdir(path):
         return path
-    logging.warning(f"No folder with name {path}: creating folder at path.")
+    logging.warning(f"No folder at {path}: creating folders at path.")
     os.makedirs(path)
     return path

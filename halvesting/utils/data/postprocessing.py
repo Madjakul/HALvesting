@@ -1,4 +1,4 @@
-# halversting/utils/data/postprocessing.py
+# halvesting/utils/data/postprocessing.py
 
 import re
 import string
@@ -10,8 +10,10 @@ from transformers import AutoTokenizer
 
 PRECISION = 2
 TRANSLATION_TABLE_PUNCTUATION = str.maketrans("", "", string.punctuation)
-NON_PRINTING_CHAR_RE: re.Pattern = re.compile(f"[{''.join(map(chr, list(range(0,32)) + list(range(127,160))))}]")
-DIGIT_RE: re.Pattern = re.compile(r"\d")
+NON_PRINTING_CHAR_RE: re.Pattern = re.compile(
+    f"[{''.join(map(chr, list(range(0,32)) + list(range(127,160))))}]"
+)
+DIGITS_RE: re.Pattern = re.compile(r"\d")
 UNICODE_PUNCTUATION: Dict[str, str] = {
     "，": ",",
     "。": ".",
@@ -68,13 +70,14 @@ class Postprocessing:
     tokenizer = AutoTokenizer.from_pretrained("google/mt5-small")
     word_tokenizer = WordPunctTokenizer()
 
-    def __init__(self, text: str):
+    def __init__(self, text: str, **kwargs):
         self.raw_content = text
         self.raw_words = tuple(self.word_tokenizer.tokenize(self.raw_content))
         self.num_raw_words = len(self.raw_words)
         self.normalized_content = self._normalize(text)
         self.normalized_words = self.normalized_content.split()
         self.num_normalized_words = len(self.normalized_words)
+        self.__dict__.update(kwargs)
 
     def count_tokens(self, text: str):
         """Count the number of tokens in the text.
