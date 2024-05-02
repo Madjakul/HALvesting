@@ -13,7 +13,7 @@ The latest dump can be found on [HuggingFace](https://huggingface.co/datasets/Ma
 ## Features
 
 - [**fetch_data.py**](fetch_data.py): This script fetches data from HAL using specified criterias.
-- [**postprocess_data.py**](postprocess_data.py): This script is used for post-processing the fetched data.
+- [**merge_data.py**](merge_data.py): This script is used for post-processing the fetched data.
 - [**enrich_data.py**](enrich_data.py): This script adds new keys to the merged data.
 - [**filter_data.py**](filter_data.py): This script removes gibberish documents.
 
