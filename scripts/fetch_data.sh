@@ -14,7 +14,7 @@ QUERY="*"
 TO_DATE="2024-02-29"
 TO_HOUR="23:59:59"
 
-PDF=true
+PDF=false
 PDF_DIR="$DATA_ROOT/pdfs"   # Mandatory if PDF is true
 NUM_CHUNKS=100              # mandatory if PDF is true
 # --------------------------------------------------------------------------------------
