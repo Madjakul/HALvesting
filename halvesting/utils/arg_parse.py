@@ -44,13 +44,15 @@ class FetcherArgParse:
         parser.add_argument(
             "--from_date",
             type=str,
-            default=argparse.SUPPRESS,
+            nargs="?",
+            const=None,
             help="Minimum submition date of documents.",
         )
         parser.add_argument(
             "--from_hour",
             type=str,
-            default=argparse.SUPPRESS,
+            nargs="?",
+            const=None,
             help="Minimum submition hour of documents.",
         )
         parser.add_argument(

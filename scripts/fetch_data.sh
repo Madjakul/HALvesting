@@ -5,13 +5,13 @@ DATA_ROOT=$PROJECT_ROOT/data                        # Do not modify
 
 # ******************************* Customizable Arguments *******************************
 
-RESPONSE_DIR="$DATA_ROOT/responses_0"
+RESPONSE_DIR="$DATA_ROOT/responses_4"
 
 # ------------------------------- Optional Arguments -----------------------------------
 QUERY="*"
-# FROM_DATE="2023-09-01"
-# FROM_HOUR="00:00:00"
-TO_DATE="2024-02-29"
+FROM_DATE="2024-02-01"
+FROM_HOUR="00:00:00"
+TO_DATE="2024-05-31"
 TO_HOUR="23:59:59"
 
 PDF=false
@@ -40,9 +40,8 @@ fi
 if [[ -v TO_HOUR ]]; then
   cmd+=( --to_hour "$TO_HOUR" )
 fi
-if [[ "$PDF" = true ]]; then
-  cmd+=( --pdf "$PDF" \
+cmd+=( --pdf "$PDF" \
     --pdf_dir "$PDF_DIR" \
     --num_chunks "$NUM_CHUNKS" )
-fi
+
 "${cmd[@]}"

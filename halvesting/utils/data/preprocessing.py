@@ -124,22 +124,24 @@ def format_hal(data: HtmlElement):
             continue
 
         parsed_data = {}
-        halid = match.xpath(".//idno[contains(@type,'halId')]")[0]
-        title = match.xpath(".//title")[0]
-        authors = match.xpath(".//titlestmt/author[contains(@role, 'aut')]")
-        # The date is the produced year provided by HAL
-        date = match.xpath(
-            """.//editionstmt/edition[contains(@type, 'current')]
-            /date[contains(@type, 'whenProduced')]
-            """
-        )[0]
-        lang = match.xpath(".//profiledesc/langusage/language/@ident")[0]
-        domain = match.xpath(
-            """.//profiledesc/textclass
-            /classcode[contains(@scheme, 'halDomain')]/@n
-            """
-        )
-
+        try:
+            halid = match.xpath(".//idno[contains(@type,'halId')]")[0]
+            title = match.xpath(".//title")[0]
+            authors = match.xpath(".//titlestmt/author[contains(@role, 'aut')]")
+            # The date is the produced year provided by HAL
+            date = match.xpath(
+                """.//editionstmt/edition[contains(@type, 'current')]
+                /date[contains(@type, 'whenProduced')]
+                """
+            )[0]
+            lang = match.xpath(".//profiledesc/langusage/language/@ident")[0]
+            domain = match.xpath(
+                """.//profiledesc/textclass
+                /classcode[contains(@scheme, 'halDomain')]/@n
+                """
+            )
+        except IndexError:
+            continue
         parsed_data["halid"] = re.sub(r"(^.+)-(.+$)", r"\2", halid.text)
         parsed_data["lang"] = lang
         parsed_data["title"] = title.text
