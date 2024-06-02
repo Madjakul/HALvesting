@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Overview &#8212; HALvesting: Harvests open scientific papers from HAL.  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+    <link rel="stylesheet" type="text/css" href="_static/basic_mod.css?v=d7bb20b6" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <script src="_static/js/petite-vue.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation" href="installation.html" />
+    <link rel="prev" title="HALvesting: Harvests open scientific papers from HAL" href="index.html" /> 
+  </head><body data-dark_mode_code_blocks="true">
+
+<div id="top_nav">
+    
+
+    <nav>
+        
+            
+        
+
+        <p id="toggle_sidebar">
+            <a href="#" title="Toggle sidebar">|||</a>
+        </p>
+        <h1><a href="index.html" title="Go to homepage">HALvesting</a></h1>
+            <a id="source_link" href="https://github.com/Madjakul/HALvesting">
+    
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512">
+            <path fill="white" d="M 244.8,8 C 106.1,8 0,113.3 0,252 c 0,110.9 69.8,205.8 169.5,239.2 12.8,2.3 17.3,-5.6 17.3,-12.1 0,-6.2 -0.3,-40.4 -0.3,-61.4 0,0 -70,15 -84.7,-29.8 0,0 -11.4,-29.1 -27.8,-36.6 0,0 -22.9,-15.7 1.6,-15.4 0,0 24.9,2 38.6,25.8 21.9,38.6 58.6,27.5 72.9,20.9 2.3,-16 8.8,-27.1 16,-33.7 -55.9,-6.2 -112.3,-14.3 -112.3,-110.5 0,-27.5 7.6,-41.3 23.6,-58.9 -2.6,-6.5 -11.1,-33.3 2.6,-67.9 20.9,-6.5 69,27 69,27 20,-5.6 41.5,-8.5 62.8,-8.5 21.3,0 42.8,2.9 62.8,8.5 0,0 48.1,-33.6 69,-27 13.7,34.7 5.2,61.4 2.6,67.9 16,17.7 25.8,31.5 25.8,58.9 0,96.5 -58.9,104.2 -114.8,110.5 9.2,7.9 17,22.9 17,46.4 0,33.7 -0.3,75.4 -0.3,83.6 0,6.5 4.6,14.4 17.3,12.1 C 428.2,457.8 496,362.9 496,252 496,113.3 383.5,8 244.8,8 Z"/>
+        </svg>
+    
+</a>
+        
+
+        <a id="mode_toggle" href="#" @click.prevent="handleClick" :title="mode">
+    <template v-if="mode == 'light'">
+        <svg width="100%" height="100%" viewBox="0 0 79 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><g id="mode_light"><rect id="Bounds" x="0" y="-0" width="78.623" height="79.049" style="fill:none;"/><circle cx="39.311" cy="39.524" r="15.734" style="fill:#fff;"/><g id="beams"><g id="beam"><path id="beam1" serif:id="beam" d="M44.212,4.901c0,-2.705 -2.196,-4.901 -4.901,-4.901c-2.704,-0 -4.9,2.196 -4.9,4.901l-0,9.614c-0,2.705 2.196,4.901 4.9,4.901c2.705,0 4.901,-2.196 4.901,-4.901l0,-9.614Z" style="fill:#fff;"/></g><g id="beam2" serif:id="beam"><path id="beam3" serif:id="beam" d="M67.48,18.073c1.913,-1.912 1.913,-5.018 0,-6.931c-1.912,-1.912 -5.018,-1.912 -6.931,0l-6.798,6.799c-1.912,1.912 -1.912,5.018 0,6.931c1.913,1.912 5.018,1.912 6.931,-0l6.798,-6.799Z" style="fill:#fff;"/></g><g id="beam4" serif:id="beam"><path id="beam5" serif:id="beam" d="M25.728,61.108c1.912,-1.913 1.912,-5.018 -0,-6.931c-1.913,-1.913 -5.019,-1.913 -6.931,-0l-6.799,6.798c-1.912,1.913 -1.912,5.019 0,6.931c1.913,1.913 5.019,1.913 6.931,0l6.799,-6.798Z" style="fill:#fff;"/></g><g id="beam6" serif:id="beam"><path id="beam7" serif:id="beam" d="M60.682,54.177c-1.913,-1.913 -5.018,-1.913 -6.931,-0c-1.912,1.913 -1.912,5.018 0,6.931l6.798,6.798c1.913,1.913 5.019,1.913 6.931,0c1.913,-1.912 1.913,-5.018 0,-6.931l-6.798,-6.798Z" style="fill:#fff;"/></g><g id="beam8" serif:id="beam"><path id="beam9" serif:id="beam" d="M4.901,34.623c-2.705,0 -4.901,2.196 -4.901,4.901c0,2.705 2.196,4.901 4.901,4.901l9.614,0c2.705,0 4.901,-2.196 4.901,-4.901c0,-2.705 -2.196,-4.901 -4.901,-4.901l-9.614,0Z" style="fill:#fff;"/></g><g id="beam10" serif:id="beam"><path id="beam11" serif:id="beam" d="M44.212,64.534c0,-2.705 -2.196,-4.901 -4.901,-4.901c-2.704,-0 -4.9,2.196 -4.9,4.901l-0,9.614c-0,2.705 2.196,4.901 4.9,4.901c2.705,-0 4.901,-2.196 4.901,-4.901l0,-9.614Z" style="fill:#fff;"/></g><g id="beam12" serif:id="beam"><path id="beam13" serif:id="beam" d="M18.929,11.142c-1.912,-1.912 -5.018,-1.912 -6.931,0c-1.912,1.913 -1.912,5.019 0,6.931l6.799,6.799c1.912,1.912 5.018,1.912 6.931,-0c1.912,-1.913 1.912,-5.019 -0,-6.931l-6.799,-6.799Z" style="fill:#fff;"/></g><g id="beam14" serif:id="beam"><path id="beam15" serif:id="beam" d="M64.108,34.623c-2.705,0 -4.901,2.196 -4.901,4.901c-0,2.705 2.196,4.901 4.901,4.901l9.614,0c2.705,0 4.901,-2.196 4.901,-4.901c-0,-2.705 -2.196,-4.901 -4.901,-4.901l-9.614,0Z" style="fill:#fff;"/></g></g></g></svg>
+    </template>
+
+    <template v-if="mode == 'dark'">
+        <svg width="100%" height="100%" viewBox="0 0 79 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><g id="mode_dark"><rect id="Bounds" x="0" y="-0" width="78.623" height="79.049" style="fill:none;"/><circle cx="39.311" cy="39.524" r="15.734" style="fill:#fff;"/><g id="beams"><g id="beam"><path id="beam1" serif:id="beam" d="M44.212,14.515c0,-2.705 -2.196,-4.901 -4.901,-4.901c-2.704,0 -4.901,2.196 -4.901,4.901c0,2.705 2.197,4.901 4.901,4.901c2.705,0 4.901,-2.196 4.901,-4.901Z" style="fill:#fff;"/></g><g id="beam2" serif:id="beam"><path id="beam3" serif:id="beam" d="M60.662,24.892c1.902,-1.902 1.902,-4.99 0,-6.892l-0.04,-0.039c-1.901,-1.902 -4.989,-1.902 -6.891,-0c-1.901,1.901 -1.901,4.989 0,6.891l0.04,0.04c1.902,1.901 4.989,1.901 6.891,-0Z" style="fill:#fff;"/></g><g id="beam4" serif:id="beam"><path id="beam5" serif:id="beam" d="M25.732,61.103c1.91,-1.91 1.91,-5.011 0,-6.921l-0.009,-0.01c-1.91,-1.91 -5.012,-1.91 -6.921,-0c-1.91,1.91 -1.91,5.011 -0,6.921l0.01,0.01c1.909,1.91 5.011,1.91 6.92,-0Z" style="fill:#fff;"/></g><g id="beam6" serif:id="beam"><path id="beam7" serif:id="beam" d="M60.672,54.167c-1.907,-1.907 -5.004,-1.907 -6.911,0l-0.02,0.02c-1.907,1.907 -1.907,5.004 0,6.911c1.907,1.907 5.004,1.907 6.911,-0l0.02,-0.02c1.907,-1.907 1.907,-5.004 0,-6.911Z" style="fill:#fff;"/></g><g id="beam8" serif:id="beam"><path id="beam9" serif:id="beam" d="M14.52,34.623c-2.702,0 -4.896,2.194 -4.896,4.896l0,0.01c0,2.702 2.194,4.896 4.896,4.896c2.702,0 4.896,-2.194 4.896,-4.896l-0,-0.01c-0,-2.702 -2.194,-4.896 -4.896,-4.896Z" style="fill:#fff;"/></g><g id="beam10" serif:id="beam"><path id="beam11" serif:id="beam" d="M44.212,64.534c0,-2.705 -2.196,-4.901 -4.901,-4.901c-2.704,-0 -4.901,2.196 -4.901,4.901c0,2.704 2.197,4.9 4.901,4.9c2.705,0 4.901,-2.196 4.901,-4.9Z" style="fill:#fff;"/></g><g id="beam12" serif:id="beam"><path id="beam13" serif:id="beam" d="M25.73,17.943c-1.911,-1.911 -5.015,-1.911 -6.926,0l-0.005,0.005c-1.911,1.911 -1.911,5.015 0,6.926c1.911,1.911 5.015,1.911 6.926,0l0.005,-0.005c1.911,-1.911 1.911,-5.014 -0,-6.926Z" style="fill:#fff;"/></g><g id="beam14" serif:id="beam"><path id="beam15" serif:id="beam" d="M64.098,34.623c-2.699,0 -4.891,2.192 -4.891,4.892l-0,0.019c-0,2.699 2.192,4.891 4.891,4.891c2.7,0 4.892,-2.192 4.892,-4.891l0,-0.019c0,-2.7 -2.192,-4.892 -4.892,-4.892Z" style="fill:#fff;"/></g></g></g></svg>
+    </template>
+
+    <template v-if="mode == 'darkest'">
+        <svg width="100%" height="100%" viewBox="0 0 79 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><g id="mode_darkest"><rect id="Bounds" x="0" y="-0" width="78.623" height="79.049" style="fill:none;"/><path d="M39.315,23.791c8.684,-0 15.734,7.05 15.734,15.733c0,8.684 -7.05,15.734 -15.734,15.734c-8.683,0 -15.733,-7.05 -15.733,-15.734c-0,-8.683 7.05,-15.733 15.733,-15.733Zm0,4.737c6.069,0 10.997,4.927 10.997,10.996c-0,6.069 -4.928,10.996 -10.997,10.996c-6.068,0 -10.996,-4.927 -10.996,-10.996c0,-6.069 4.928,-10.996 10.996,-10.996Z" style="fill:#fff;"/><g id="beams"><g id="beam"><path id="beam1" serif:id="beam" d="M44.216,14.515c0,-2.705 -2.196,-4.901 -4.901,-4.901c-2.704,0 -4.9,2.196 -4.9,4.901c-0,2.705 2.196,4.901 4.9,4.901c2.705,0 4.901,-2.196 4.901,-4.901Z" style="fill:#fff;"/></g><g id="beam2" serif:id="beam"><path id="beam3" serif:id="beam" d="M60.666,24.892c1.902,-1.902 1.902,-4.99 0,-6.892l-0.04,-0.039c-1.901,-1.902 -4.989,-1.902 -6.891,-0c-1.901,1.901 -1.901,4.989 0,6.891l0.04,0.04c1.902,1.901 4.99,1.901 6.891,-0Z" style="fill:#fff;"/></g><g id="beam4" serif:id="beam"><path id="beam5" serif:id="beam" d="M25.737,61.103c1.909,-1.91 1.909,-5.011 -0,-6.921l-0.01,-0.01c-1.91,-1.91 -5.011,-1.91 -6.921,-0c-1.91,1.91 -1.91,5.011 -0,6.921l0.01,0.01c1.91,1.91 5.011,1.91 6.921,-0Z" style="fill:#fff;"/></g><g id="beam6" serif:id="beam"><path id="beam7" serif:id="beam" d="M60.676,54.167c-1.907,-1.907 -5.004,-1.907 -6.911,0l-0.02,0.02c-1.907,1.907 -1.907,5.004 0,6.911c1.907,1.907 5.004,1.907 6.911,-0l0.02,-0.02c1.907,-1.907 1.907,-5.004 0,-6.911Z" style="fill:#fff;"/></g><g id="beam8" serif:id="beam"><path id="beam9" serif:id="beam" d="M14.524,34.623c-2.702,0 -4.896,2.194 -4.896,4.896l0,0.01c0,2.702 2.194,4.896 4.896,4.896c2.702,0 4.896,-2.194 4.896,-4.896l0,-0.01c0,-2.702 -2.194,-4.896 -4.896,-4.896Z" style="fill:#fff;"/></g><g id="beam10" serif:id="beam"><path id="beam11" serif:id="beam" d="M44.216,64.534c0,-2.705 -2.196,-4.901 -4.901,-4.901c-2.704,-0 -4.9,2.196 -4.9,4.901c-0,2.704 2.196,4.9 4.9,4.9c2.705,0 4.901,-2.196 4.901,-4.9Z" style="fill:#fff;"/></g><g id="beam12" serif:id="beam"><path id="beam13" serif:id="beam" d="M25.734,17.943c-1.911,-1.911 -5.015,-1.911 -6.926,0l-0.005,0.005c-1.911,1.911 -1.911,5.015 0,6.926c1.911,1.911 5.015,1.911 6.926,0l0.005,-0.005c1.911,-1.911 1.911,-5.014 0,-6.926Z" style="fill:#fff;"/></g><g id="beam14" serif:id="beam"><path id="beam15" serif:id="beam" d="M64.103,34.623c-2.7,0 -4.892,2.192 -4.892,4.892l-0,0.019c-0,2.699 2.192,4.891 4.892,4.891c2.699,0 4.891,-2.192 4.891,-4.891l0,-0.019c0,-2.7 -2.192,-4.892 -4.891,-4.892Z" style="fill:#fff;"/></g></g></g></svg>
+    </template>
+</a>
+
+<script>
+(function() {
+    const LOCAL_STORAGE_KEY = 'piccoloThemeMode'
+
+    var initialMode = localStorage.getItem(LOCAL_STORAGE_KEY)
+
+    if (initialMode) {
+        // Make sure the value in local storage is valid
+        if (['light', 'dark', 'darkest'].indexOf(initialMode) == -1) {
+            initialMode = 'light'
+            localStorage.setItem(LOCAL_STORAGE_KEY, initialMode)
+        }
+    } else {
+        // Check if the client prefers dark mode
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            initialMode = 'dark'
+        } else {
+            initialMode = 'light'
+        }
+        localStorage.setItem(LOCAL_STORAGE_KEY, initialMode)
+    }
+
+    document.documentElement.dataset.mode = initialMode
+
+    PetiteVue.createApp({
+        'mode': initialMode,
+        handleClick() {
+            let currentMode = this.mode
+
+            if (currentMode == 'light') {
+                this.mode = 'dark'
+            } else if (currentMode == 'dark') {
+                this.mode = 'darkest'
+            } else if (currentMode == 'darkest') {
+                this.mode = 'light'
+            }
+
+            document.documentElement.dataset.mode = this.mode
+            localStorage.setItem(LOCAL_STORAGE_KEY, this.mode)
+
+            console.log(this.mode)
+        }
+    }).mount('#mode_toggle')
+})()
+</script>
+            <p class="mobile_search_link">
+                <a href="search.html" title="Search">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 65 64" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2">
+                        <path d="M14.873 40.009c-2.315-3.943-3.642-8.532-3.642-13.429C11.231 11.91 23.141 0 37.811 0s26.58 11.91 26.58 26.58-11.91 26.58-26.58 26.58a26.44 26.44 0 0 1-14.277-4.161L9.739 62.794a3.12 3.12 0 0 1-4.413 0L.913 58.382c-1.217-1.218-1.217-3.196 0-4.413l13.96-13.96zM37.811 8.054c10.225 0 18.526 8.301 18.526 18.526s-8.301 18.526-18.526 18.526-18.526-8.301-18.526-18.526S27.586 8.054 37.811 8.054z" fill="#fff" />
+                    </svg>
+                </a>
+            </p>
+        
+
+        <div class="searchbox_wrapper">
+            
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">How to Use HALvesting</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="halvesting/services/api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="halvesting/services/downloader.html">Downloader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="halvesting/services/merger.html">Merger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="halvesting/services/enricher.html">Enricher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="halvesting/services/filtering.html">Filtering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="halvesting/utils/data/preprocessing.html">Preprocessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="halvesting/utils/data/postprocessing.html">Postprocessing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="halvesting/utils/kenlm_utils.html">KenLM Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="halvesting/utils/utils.html">Utils</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+</ul>
+
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="overview">
+<h1>Overview<a class="headerlink" href="#overview" title="Link to this heading">¶</a></h1>
+<section id="dataset-summary">
+<h2>Dataset Summary<a class="headerlink" href="#dataset-summary" title="Link to this heading">¶</a></h2>
+<p>HALvest is compriseed of fulltext from open papers found on <a class="reference external" href="https://hal.science/">Hyper Articles en Ligne (HAL)</a>. Our dump is mostly english/french but gather papers written in 34 languages across 13 domains.</p>
+<p>You can download the dataset using Hugging Face datasets:</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datasets</span> <span class="kn">import</span> <span class="n">load_dataset</span>
+
+<span class="n">ds</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;Madjakul/HALvest&quot;</span><span class="p">,</span> <span class="s2">&quot;en&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="details">
+<h3>Details<a class="headerlink" href="#details" title="Link to this heading">¶</a></h3>
+<p>Building the dataset is a four steps process: data fetching from HAL, data merging, data enriching and data filtering.</p>
+<ol class="arabic simple">
+<li><p>We first request <a class="reference external" href="https://api.archives-ouvertes.fr/docs">HAL’s API</a> in order to gather open research papers and parse it – effectively sorting papers by language. Then, we download the PDFs of the fetched data.</p></li>
+<li><p>Using <a class="reference external" href="https://github.com/kermitt2/grobid">GROBID</a>, we convert each PDF to an <code class="docutils literal notranslate"><span class="pre">xml-tei</span></code> format in order to have structured data. We convert each <code class="docutils literal notranslate"><span class="pre">xml-tei</span></code> file to a <code class="docutils literal notranslate"><span class="pre">txt</span></code> format before concatenating it with the paper’s.</p></li>
+<li><p>We compute some statistics about each document.</p></li>
+<li><p>We filter the data based of off simple ratios to expurge badly encoded documents.</p></li>
+</ol>
+</section>
+<section id="languages">
+<h3>Languages<a class="headerlink" href="#languages" title="Link to this heading">¶</a></h3>
+<p>Every languages that do not have stop-words are removed from the clean dataset. Due to encoding problems, arabic is also removed from the clean dataset. Japanese and chinee are removed due to most of the heuristics used failing to filter out gibberish data on it.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>ISO-639</p></th>
+<th class="head"><p>Language</p></th>
+<th class="head"><p># Documents</p></th>
+<th class="head"><p># mT5 Tokens</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>en</p></td>
+<td><p>English</p></td>
+<td><p>442,892</p></td>
+<td><p>7,606,895,258</p></td>
+</tr>
+<tr class="row-odd"><td><p>fr</p></td>
+<td><p>French</p></td>
+<td><p>193,437</p></td>
+<td><p>8,728,722,255</p></td>
+</tr>
+<tr class="row-even"><td><p>es</p></td>
+<td><p>Spanish</p></td>
+<td><p>2,930</p></td>
+<td><p>68,076,878</p></td>
+</tr>
+<tr class="row-odd"><td><p>it</p></td>
+<td><p>Italian</p></td>
+<td><p>1,172</p></td>
+<td><p>48,747,986</p></td>
+</tr>
+<tr class="row-even"><td><p>pt</p></td>
+<td><p>Portuguese</p></td>
+<td><p>934</p></td>
+<td><p>32,918,832</p></td>
+</tr>
+<tr class="row-odd"><td><p>de</p></td>
+<td><p>German</p></td>
+<td><p>646</p></td>
+<td><p>11,699,417</p></td>
+</tr>
+<tr class="row-even"><td><p>ru</p></td>
+<td><p>Russian</p></td>
+<td><p>245</p></td>
+<td><p>5,763,532</p></td>
+</tr>
+<tr class="row-odd"><td><p>eu</p></td>
+<td><p>Basque</p></td>
+<td><p>112</p></td>
+<td><p>2,297,460</p></td>
+</tr>
+<tr class="row-even"><td><p>pl</p></td>
+<td><p>Polish</p></td>
+<td><p>43</p></td>
+<td><p>987,878</p></td>
+</tr>
+<tr class="row-odd"><td><p>el</p></td>
+<td><p>Greek</p></td>
+<td><p>42</p></td>
+<td><p>1,680,696</p></td>
+</tr>
+<tr class="row-even"><td><p>ro</p></td>
+<td><p>Romanian</p></td>
+<td><p>39</p></td>
+<td><p>1,298,901</p></td>
+</tr>
+<tr class="row-odd"><td><p>ca</p></td>
+<td><p>Catalan</p></td>
+<td><p>28</p></td>
+<td><p>975,078</p></td>
+</tr>
+<tr class="row-even"><td><p>da</p></td>
+<td><p>Danish</p></td>
+<td><p>26</p></td>
+<td><p>961,895</p></td>
+</tr>
+<tr class="row-odd"><td><p>br</p></td>
+<td><p>Breton</p></td>
+<td><p>24</p></td>
+<td><p>998,088</p></td>
+</tr>
+<tr class="row-even"><td><p>ko</p></td>
+<td><p>Korean</p></td>
+<td><p>17</p></td>
+<td><p>226,268</p></td>
+</tr>
+<tr class="row-odd"><td><p>tr</p></td>
+<td><p>Turkish</p></td>
+<td><p>17</p></td>
+<td><p>149,718</p></td>
+</tr>
+<tr class="row-even"><td><p>hu</p></td>
+<td><p>Hungarian</p></td>
+<td><p>14</p></td>
+<td><p>577,568</p></td>
+</tr>
+<tr class="row-odd"><td><p>eo</p></td>
+<td><p>Esperanto</p></td>
+<td><p>14</p></td>
+<td><p>105,286</p></td>
+</tr>
+<tr class="row-even"><td><p>fa</p></td>
+<td><p>Persian</p></td>
+<td><p>10</p></td>
+<td><p>190,929</p></td>
+</tr>
+<tr class="row-odd"><td><p>hy</p></td>
+<td><p>Armenian</p></td>
+<td><p>10</p></td>
+<td><p>127,988</p></td>
+</tr>
+<tr class="row-even"><td><p>cs</p></td>
+<td><p>Czech</p></td>
+<td><p>9</p></td>
+<td><p>712,263</p></td>
+</tr>
+<tr class="row-odd"><td><p>bg</p></td>
+<td><p>Bulgarian</p></td>
+<td><p>8</p></td>
+<td><p>180,146</p></td>
+</tr>
+<tr class="row-even"><td><p>id</p></td>
+<td><p>Indonesian</p></td>
+<td><p>9</p></td>
+<td><p>53,075</p></td>
+</tr>
+<tr class="row-odd"><td><p>he</p></td>
+<td><p>Hebrew</p></td>
+<td><p>8</p></td>
+<td><p>61,283</p></td>
+</tr>
+<tr class="row-even"><td><p>hr</p></td>
+<td><p>Croatian</p></td>
+<td><p>8</p></td>
+<td><p>40,621</p></td>
+</tr>
+<tr class="row-odd"><td><p>et</p></td>
+<td><p>Estonian</p></td>
+<td><p>7</p></td>
+<td><p>20,405</p></td>
+</tr>
+<tr class="row-even"><td><p>sv</p></td>
+<td><p>Swedish</p></td>
+<td><p>6</p></td>
+<td><p>270,642</p></td>
+</tr>
+<tr class="row-odd"><td><p>no</p></td>
+<td><p>Norwegian</p></td>
+<td><p>6</p></td>
+<td><p>62,767</p></td>
+</tr>
+<tr class="row-even"><td><p>fi</p></td>
+<td><p>Finnish</p></td>
+<td><p>3</p></td>
+<td><p>17,583</p></td>
+</tr>
+<tr class="row-odd"><td><p>sw</p></td>
+<td><p>Swahili</p></td>
+<td><p>2</p></td>
+<td><p>73,921</p></td>
+</tr>
+<tr class="row-even"><td><p>gl</p></td>
+<td><p>Galician</p></td>
+<td><p>2</p></td>
+<td><p>29,688</p></td>
+</tr>
+<tr class="row-odd"><td><p>th</p></td>
+<td><p>Thai</p></td>
+<td><p>1</p></td>
+<td><p>70,909</p></td>
+</tr>
+<tr class="row-even"><td><p>sl</p></td>
+<td><p>Slovenian</p></td>
+<td><p>1</p></td>
+<td><p>22,844</p></td>
+</tr>
+<tr class="row-odd"><td><p>sk</p></td>
+<td><p>Slovak</p></td>
+<td><p>1</p></td>
+<td><p>12,997</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="domains">
+<h3>Domains<a class="headerlink" href="#domains" title="Link to this heading">¶</a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Domain</p></th>
+<th class="head"><p>Code</p></th>
+<th class="head"><p># Documents</p></th>
+<th class="head"><p># mT5 Tokens</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Humanities and Social Sciences</p></td>
+<td><p>shs</p></td>
+<td><p>152,818</p></td>
+<td><p>5,487,738,344</p></td>
+</tr>
+<tr class="row-odd"><td><p>Computer Science</p></td>
+<td><p>info</p></td>
+<td><p>143,229</p></td>
+<td><p>2,436,890,715</p></td>
+</tr>
+<tr class="row-even"><td><p>Life Sciences</p></td>
+<td><p>sdv</p></td>
+<td><p>111,038</p></td>
+<td><p>3,008,633,879</p></td>
+</tr>
+<tr class="row-odd"><td><p>Engineering Sciences</p></td>
+<td><p>spi</p></td>
+<td><p>99,393</p></td>
+<td><p>2,155,602,249</p></td>
+</tr>
+<tr class="row-even"><td><p>Physics</p></td>
+<td><p>phys</p></td>
+<td><p>63,557</p></td>
+<td><p>1,435,905,328</p></td>
+</tr>
+<tr class="row-odd"><td><p>Mathematics</p></td>
+<td><p>math</p></td>
+<td><p>54,393</p></td>
+<td><p>1,359,277,656</p></td>
+</tr>
+<tr class="row-even"><td><p>Chemical Science</p></td>
+<td><p>chim</p></td>
+<td><p>38,500</p></td>
+<td><p>857,617,219</p></td>
+</tr>
+<tr class="row-odd"><td><p>Environmental Science</p></td>
+<td><p>sde</p></td>
+<td><p>30,827</p></td>
+<td><p>566,560,266</p></td>
+</tr>
+<tr class="row-even"><td><p>Sciences of the Universe</p></td>
+<td><p>sdu</p></td>
+<td><p>22,917</p></td>
+<td><p>654,909,131</p></td>
+</tr>
+<tr class="row-odd"><td><p>Statistics</p></td>
+<td><p>stat</p></td>
+<td><p>20,571</p></td>
+<td><p>1,449,842,318</p></td>
+</tr>
+<tr class="row-even"><td><p>Cognitive science</p></td>
+<td><p>scco</p></td>
+<td><p>11,584</p></td>
+<td><p>222,832,732</p></td>
+</tr>
+<tr class="row-odd"><td><p>Quantitative Finance</p></td>
+<td><p>qfin</p></td>
+<td><p>3,290</p></td>
+<td><p>64,970,285</p></td>
+</tr>
+<tr class="row-even"><td><p>Nonlinear Sciences</p></td>
+<td><p>nlin</p></td>
+<td><p>1,908</p></td>
+<td><p>29,296,684</p></td>
+</tr>
+</tbody>
+</table>
+<p>You can browse through every domains and sub-domains here: <a class="reference external" href="https://hal.science/browse/domain">https://hal.science/browse/domain</a>.</p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+    
+        <div id="show_right_sidebar">
+            <p><a class="toggle_right_sidebar" href="#"><span class="icon">&lt;</span><span>Page contents</span></a></p>
+        </div>
+
+        <div id="right_sidebar">
+            <p><a class="toggle_right_sidebar" href="#"><span class="icon">&gt;</span><span>Page contents:</span></a></p>
+            <div class="page_toc">
+                <ul>
+<li><a class="reference internal" href="#">Overview</a><ul>
+<li><a class="reference internal" href="#dataset-summary">Dataset Summary</a><ul>
+<li><a class="reference internal" href="#details">Details</a></li>
+<li><a class="reference internal" href="#languages">Languages</a></li>
+<li><a class="reference internal" href="#domains">Domains</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+        </div>
+    
+
+      <div class="clearer"></div>
+    </div>
+    <div class="button_nav_wrapper">
+        <div class="button_nav">
+            <div class="left">
+                
+                <a href="index.html">
+                    <span class="icon">&lt;</span><span>HALvesting: Harvests open scientific papers from HAL</span></a>
+                
+            </div>
+
+            <div class="right">
+                
+                    <a href="installation.html"><span>Installation</span><span class="icon">&gt;</span></a>
+                
+            </div>
+        </div>
+    </div>
+
+
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2024, Madjakul.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    </div>
+
+<p id="theme_credit">Styled using the <a href="https://github.com/piccolo-orm/piccolo_theme">Piccolo Theme</a></p>
+  </body>
+</html>
