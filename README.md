@@ -6,6 +6,7 @@
 Harvests open scientific papers from HAL.
 
 * See also: [HALvesting-Geometric](https://github.com/Madjakul/HALvesting-Geometric)
+* See also: [HALvesting-Contrastive](https://github.com/Madjakul/HALvesting-Contrastive)
 
 ---
 
